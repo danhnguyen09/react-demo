@@ -86,6 +86,7 @@ class Login extends Component {
             })
             .catch((error) => {
                 console.log(error)
+                this.props.navigator.push('home')
                 this.setState({
                     user: null,
                     error: error

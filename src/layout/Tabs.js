@@ -14,10 +14,10 @@ class TabApp extends Component {
       <TabNavigation
         id="main"
         navigatorUID="main"
-        initialTab="home"
+        initialTab="home_test"
       >
         <TabItem
-          id="home"
+          id="home_test"
           renderIcon={(isSelected) =>
             <TabIcon iconName="ios-albums-outline" title="Home" isSelected={isSelected} /> }
         >
