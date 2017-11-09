@@ -15,19 +15,42 @@ import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
 
-export const Router = createRouter(() => ({
-    login: () => Login,
-    home: () => Home,
-    demo: () => Demo,
-    demo2: () => Demo2,
-    screen1: () => Screen1,
-    screen2: () => Screen2,
-    screen3: () => Screen3,
-    screen4: () => Screen4,
-    screen5: () => Screen5,
-    screen6: () => Screen6,
-    screen7: () => Screen7,
-    screen8: () => Screen8,
-    screen9: () => Screen9,
-    screen10: () => Screen10,
-}));
+
+export const Stack1 = StackNavigation({
+    screen7: {
+        screen: Screen7,
+    },
+    screen8: {
+        screen: Screen8,
+    }
+});
+
+export const Stack2 = StackNavigation({
+    screen5: {
+        screen: Screen5,
+    },
+    screen6: {
+        screen: Screen6,
+    }
+});
+
+export const Stack3 = StackNavigation({
+    screen9: {
+        screen: Screen9,
+    },
+    screen10: {
+        screen: Screen10,
+    }
+});
+
+export const Tab = TabNavigation({
+    tab1: {
+        screen: Stack1,
+    },
+    tab2: {
+        screen: Stack2,
+    },
+    tab3: {
+        screen: Stack3,
+    }
+})
