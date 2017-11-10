@@ -6,6 +6,8 @@ class Screen extends Component {
   static route = {
     navigationBar: {
       title: 'Screen #2',
+        leftButtonTitle: 'Back',
+        leftButtonTitleColor : '#fff',
     }
   }
 

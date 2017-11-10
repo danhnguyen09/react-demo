@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Text, Button, Platform } from 'react-native';
+import { Text, Button, Platform, TouchableOpacity } from 'react-native';
 import Container from '../components/Container';
-
+import styles from './styles';
 class Screen extends Component {
   static route = {
     navigationBar: {
         title: 'Screen #1',
-        visible: false
+        renderLeft: ((route, props) => <MenuButton/>)
     }
   }
 
@@ -33,4 +33,13 @@ class Screen extends Component {
   }
 }
 
+class MenuButton extends React.Component {
+    render() {
+        return (
+            <TouchableOpacity style={[styles.button,styles.menu_button]}>
+                <Text>Menu</Text>
+            </TouchableOpacity>
+        );
+    }
+}
 export default Screen;

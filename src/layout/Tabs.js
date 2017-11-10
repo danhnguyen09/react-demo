@@ -9,12 +9,24 @@ import {
 import TabIcon from '../components/TabIcon';
 
 class TabApp extends Component {
+
+    static route = {
+        navigationBar: {
+            visible: false
+        }
+    }
+
+  _callbackPopup() {
+
+  }
+
   render() {
     return (
       <TabNavigation
         id="main"
         navigatorUID="main"
         initialTab="home_test"
+        //callbackPopup={this._callbackPopup()} this.props.callbackPopup();
       >
         <TabItem
           id="home_test"

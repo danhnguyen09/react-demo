@@ -17,6 +17,9 @@ class Login extends Component {
             error: null,
             isLoading : false
         }
+
+        let user = {id: '', name: ''};
+        user.phone = 578676
     }
 
     _doLogin() {
@@ -68,7 +71,8 @@ class Login extends Component {
     }
 
     _login(email, password) {
-        return fetch(API.login(), {
+        this.props.navigator.push('home')
+        /*return fetch(API.login(), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -80,25 +84,27 @@ class Login extends Component {
             })
         }).then((response) => response.json())
             .then((responseJson) => {
-            console.log(responseJson)
                 this.props.navigator.push('home')
-                this.setState({
-                    isLoading: false
-                })
-                // this.setState({
-                //     user: responseJson.error ? null : responseJson,
-                //     error: responseJson.error ? responseJson : null
-                // })
-            })
-            .catch((error) => {
-                console.log(error)
-                this.props.navigator.push('home')
-                this.setState({
-                    user: null,
-                    error: error,
-                    isLoading: false
-                })
-            });
+            // console.log(responseJson)
+            //     this.props.navigator.push('home')
+            //     this.setState({
+            //         isLoading: false
+            //     })
+            //     // this.setState({
+            //     //     user: responseJson.error ? null : responseJson,
+            //     //     error: responseJson.error ? responseJson : null
+            //     // })
+            // })
+            // .catch((error) => {
+            //     console.log(error)
+            //     this.props.navigator.push('home')
+            //     this.setState({
+            //         user: null,
+            //         error: error,
+            //         isLoading: false
+            //     })
+             });
+             */
     }
 
     render() {
@@ -135,11 +141,11 @@ class Login extends Component {
                     margin: 20,
                     textAlign: 'center'
                 }}>{this.state.isShowValidError ? "Email or password is wrong format!" : ' '}</Text>
-                <TouchableOpacity style={
-                    {height: 48,
+                <TouchableOpacity style={[styles.button, {backgroundColor: isLoading ? "#d3d3d3" : "#FFA000"}]
+                    /*{height: 48,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: isLoading ? "#d3d3d3" : "#FFA000"}
+                    backgroundColor: isLoading ? "#d3d3d3" : "#FFA000"}*/
 
                 }
 
@@ -149,6 +155,8 @@ class Login extends Component {
                 >
                     <Text style={styles.login_button}>Login</Text>
                 </TouchableOpacity>
+
+
                 {isLoading && (<ActivityIndicator
                     style={styles.loading}
                     color="#C00"

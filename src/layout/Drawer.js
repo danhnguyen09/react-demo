@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StatusBar, Dimensions} from 'react-native';
+import AppConstant from '../screens/AppConstant';
 import {
     StackNavigation,
     DrawerNavigation,

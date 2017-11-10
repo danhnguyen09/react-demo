@@ -71,4 +71,16 @@ export default {
         justifyContent: 'center'
     },
 
+    row_spacing :{
+        flex : 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    menu_button :{
+        height : 44
+    }
+
+
+
 }
