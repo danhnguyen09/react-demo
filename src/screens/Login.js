@@ -68,7 +68,15 @@ class Login extends Component {
         }).then((response) => response.json())
             .then((responseJson) => {
             console.log(responseJson)
-                this.props.navigation.navigate('home')
+                let resetNav = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'home'})
+                    ]
+                })
+
+                this.props.navigation.dispatch(resetNav);
+                // this.props.navigation.navigate('home')
                 // this.setState({
                 //     user: responseJson.error ? null : responseJson,
                 //     error: responseJson.error ? responseJson : null
@@ -80,7 +88,14 @@ class Login extends Component {
                     user: null,
                     error: error
                 })
-                this.props.navigation.navigate('home')
+                let resetNav = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'home'})
+                    ]
+                })
+
+                this.props.navigation.dispatch(resetNav);
             });
     }
 

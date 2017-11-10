@@ -17,23 +17,6 @@ class Demo extends Component {
         }
     }
 
-    // static navigationOptions = ({navigation}) => ({
-    //     title: 'Demo List',
-    //     headerLeft: <TouchableOpacity navigate={navigation.navigate} onPress={() => {
-    //         this.props.navigate('DrawerOpen');
-    //     }}><Image
-    //         source={require('../images/ic_menu_white_24dp_2x.png')} style={
-    //         {
-    //             margin: 10
-    //         }
-    //     }/>
-    //     </TouchableOpacity>,
-    //     headerStyle: {
-    //         backgroundColor: 'green'
-    //     }
-    // })
-
-
     componentDidMount() {
         this.setState({isLoading: true});
         console.log("Run get photo")

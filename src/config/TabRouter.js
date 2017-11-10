@@ -1,5 +1,5 @@
 import React from 'react';
-import {DrawerNavigator, StackNavigator, TabNavigator} from 'react-navigation';
+import {DrawerNavigator, StackNavigator, TabNavigator, NavigationActions} from 'react-navigation';
 // import {createRouter, StackNavigation, TabNavigation} from '@expo/ex-navigation';
 
 import Screen1 from '../screens/Screen1';
@@ -69,37 +69,103 @@ const Stack1 = StackNavigator({
 const Stack2 = StackNavigator({
     screen5: {
         screen: Screen5,
+        navigationOptions: ({navigation}) => ({
+            title: 'Screen5',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+                <Image
+                    source={require('../images/ic_menu_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'green'
+            }
+        })
     },
     screen6: {
         screen: Screen6,
+        navigationOptions: ({navigation}) => ({
+            title: 'Screen6',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())}>
+                <Image
+                    source={require('../images/ic_arrow_back_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'green'
+            }
+        })
     }
 });
 
 const Stack3 = StackNavigator({
     screen9: {
         screen: Screen9,
+        navigationOptions: ({navigation}) => ({
+            title: 'Screen 9',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+                <Image
+                    source={require('../images/ic_menu_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'green'
+            }
+        })
     },
     screen10: {
         screen: Screen10,
+        navigationOptions: ({navigation}) => ({
+            title: 'Screen 10',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())}>
+                <Image
+                    source={require('../images/ic_arrow_back_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'green'
+            }
+        })
     }
 });
 
 const TabItems = TabNavigator({
     tab1: {
-        screen: Stack1,
+        screen: StackDemo,
+        navigationOptions: ({navigation}) => ({
+            title: 'TAB 1',  // Title to appear in status bar
+        })
     },
     tab2: {
         screen: Stack2,
+        navigationOptions: ({navigation}) => ({
+            title: 'TAB 2',  // Title to appear in status bar
+        })
     },
     tab3: {
         screen: Stack3,
+        navigationOptions: ({navigation}) => ({
+            title: 'TAB 3',  // Title to appear in status bar
+        })
     }
 }, {
-    initialRouteName: 'tab1'
+    initialRouteName: 'tab1',
+    tabBarPosition:'bottom'
 })
 
 const Drawers = DrawerNavigator({
-    demoScreen: {screen: StackDemo},
+    demoScreen: {screen: TabItems},
     demo2Screen: {screen: StackDemo2}
 })
 

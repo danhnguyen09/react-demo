@@ -13,7 +13,7 @@ class Screen extends Component {
     return (
       <Container
         backgroundColor="#58960c"
-        onPress={() => this.props.navigator.push('screen7')}
+        onPress={() => this.props.navigation.navigate('screen7')}
       />
     );
   }
