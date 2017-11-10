@@ -4,6 +4,7 @@ import {
     StackNavigation,
     DrawerNavigation,
     DrawerNavigationItem,
+    TabNavigation
 } from '@expo/ex-navigation';
 
 import DrawerRow from '../components/DrawerRow';

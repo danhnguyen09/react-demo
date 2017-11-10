@@ -8,10 +8,11 @@ import React, {Component} from 'react';
 import {StatusBar, View, Platform, StyleSheet} from 'react-native';
 import {NavigationProvider, StackNavigation} from '@expo/ex-navigation';
 
-import Tabs from './src/layout/Tabs';
-import Drawer from './src/layout/Drawer';
-import {Router} from './src/config/router'
-import Login from "./src/screens/Login";
+// import Tabs from './src/layout/Tabs';
+// import Drawer from './src/layout/Drawer';
+// import {Router} from './src/config/router'
+// import Login from "./src/screens/Login";
+import RootNavigator from "./src/config/TabRouter";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -21,17 +22,12 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+    constructor(props) {
+        super(props)
+    }
     render() {
         return (
-            <NavigationProvider router={Router}>
-                <View style={{flex: 1}}>
-                    <StatusBar
-                        backgroundColor='red'
-                        barStyle="dark-content"
-                    />
-                    <StackNavigation initialRoute={Router.getRoute('login')} />
-                </View>
-            </NavigationProvider>
+            <RootNavigator/>
         );
     }
 }

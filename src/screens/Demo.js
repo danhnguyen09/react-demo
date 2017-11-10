@@ -6,13 +6,9 @@ import {Alert} from "react-native";
 import APIService from '../config/api';
 import * as API from '../config/api/config';
 
+// import Tabs from "../layout/Tabs";
+
 class Demo extends Component {
-    static route = {
-        navigationBar: {
-            title: 'Demo List',
-            backgroundColor: 'green',
-        }
-    }
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +16,23 @@ class Demo extends Component {
             dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         }
     }
+
+    // static navigationOptions = ({navigation}) => ({
+    //     title: 'Demo List',
+    //     headerLeft: <TouchableOpacity navigate={navigation.navigate} onPress={() => {
+    //         this.props.navigate('DrawerOpen');
+    //     }}><Image
+    //         source={require('../images/ic_menu_white_24dp_2x.png')} style={
+    //         {
+    //             margin: 10
+    //         }
+    //     }/>
+    //     </TouchableOpacity>,
+    //     headerStyle: {
+    //         backgroundColor: 'green'
+    //     }
+    // })
+
 
     componentDidMount() {
         this.setState({isLoading: true});

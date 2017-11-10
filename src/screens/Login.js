@@ -47,21 +47,11 @@ class Login extends Component {
         this.setState({
             isLoading: false,
         })
-        if(this.state.user) {
-            Alert.alert("Login result", "Login success")
-        } else {
-            Alert.alert("Login result", "Login fail")
-        }
-        // if (loginProps.state.isLoginSuccess && !loginProps.state.isWaitingLogin && !this.state.movedPage) {
-        //     this.setState({
-        //         movedPage: true
-        //     })
-        //    this.props.navigator.push('demo')
-        //     console.log("Login success! ")
+        // if(this.state.user) {
+        //     Alert.alert("Login result", "Login success")
         // } else {
-        //     console.log(" Login fail! ")
+        //     Alert.alert("Login result", "Login fail")
         // }
-
     }
 
     _login(email, password) {
@@ -78,7 +68,7 @@ class Login extends Component {
         }).then((response) => response.json())
             .then((responseJson) => {
             console.log(responseJson)
-                this.props.navigator.push('home')
+                this.props.navigation.navigate('home')
                 // this.setState({
                 //     user: responseJson.error ? null : responseJson,
                 //     error: responseJson.error ? responseJson : null
@@ -90,6 +80,7 @@ class Login extends Component {
                     user: null,
                     error: error
                 })
+                this.props.navigation.navigate('home')
             });
     }
 

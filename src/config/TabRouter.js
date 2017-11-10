@@ -1,4 +1,6 @@
-import {createRouter, StackNavigation, TabNavigation} from '@expo/ex-navigation';
+import React from 'react';
+import {DrawerNavigator, StackNavigator, TabNavigator} from 'react-navigation';
+// import {createRouter, StackNavigation, TabNavigation} from '@expo/ex-navigation';
 
 import Screen1 from '../screens/Screen1';
 import Screen2 from '../screens/Screen2';
@@ -13,10 +15,31 @@ import Screen10 from '../screens/Screen10';
 import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
-import Home from '../screens/Home';
+import {Image, TouchableOpacity} from "react-native";
+// import Home from '../screens/Home';
 
+const StackDemo = StackNavigator({
+    demo: {
+        screen: Demo,
+        navigationOptions: ({navigation}) => ({
+            title: 'HomeDemo',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+                <Image
+                       source={require('../images/ic_menu_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                        backgroundColor: 'green'
+                    }
+        })
+    },
 
-export const Stack1 = StackNavigation({
+    demo2: {screen: Demo2},
+})
+const Stack1 = StackNavigator({
     screen7: {
         screen: Screen7,
     },
@@ -25,7 +48,7 @@ export const Stack1 = StackNavigation({
     }
 });
 
-export const Stack2 = StackNavigation({
+const Stack2 = StackNavigator({
     screen5: {
         screen: Screen5,
     },
@@ -34,7 +57,7 @@ export const Stack2 = StackNavigation({
     }
 });
 
-export const Stack3 = StackNavigation({
+const Stack3 = StackNavigator({
     screen9: {
         screen: Screen9,
     },
@@ -43,7 +66,7 @@ export const Stack3 = StackNavigation({
     }
 });
 
-export const Tab = TabNavigation({
+const TabItems = TabNavigator({
     tab1: {
         screen: Stack1,
     },
@@ -53,4 +76,20 @@ export const Tab = TabNavigation({
     tab3: {
         screen: Stack3,
     }
+}, {
+    initialRouteName: 'tab1'
 })
+
+const Drawers = DrawerNavigator({
+    demoScreen: {screen: StackDemo}
+})
+
+const RootNavigator = StackNavigator({
+    login: {screen: Login},
+    home: {screen: Drawers}
+}, {
+    initialRouteName: 'login',
+    headerMode: 'none'
+})
+
+export default RootNavigator;
