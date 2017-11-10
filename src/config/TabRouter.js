@@ -22,7 +22,7 @@ const StackDemo = StackNavigator({
     demo: {
         screen: Demo,
         navigationOptions: ({navigation}) => ({
-            title: 'HomeDemo',  // Title to appear in status bar
+            title: 'Home Demo',  // Title to appear in status bar
             headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
                 <Image
                        source={require('../images/ic_menu_white_24dp_2x.png')} style={
@@ -36,8 +36,26 @@ const StackDemo = StackNavigator({
                     }
         })
     },
+})
 
-    demo2: {screen: Demo2},
+const StackDemo2 = StackNavigator({
+    demo: {
+        screen: Demo2,
+        navigationOptions: ({navigation}) => ({
+            title: 'Demo 2',  // Title to appear in status bar
+            headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+                <Image
+                    source={require('../images/ic_menu_white_24dp_2x.png')} style={
+                    {
+                        margin: 10
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'green'
+            }
+        })
+    },
 })
 const Stack1 = StackNavigator({
     screen7: {
@@ -81,7 +99,8 @@ const TabItems = TabNavigator({
 })
 
 const Drawers = DrawerNavigator({
-    demoScreen: {screen: StackDemo}
+    demoScreen: {screen: StackDemo},
+    demo2Screen: {screen: StackDemo2}
 })
 
 const RootNavigator = StackNavigator({
