@@ -7,7 +7,7 @@ class Home extends Component {
 
     render() {
         return (
-            Platform.OS === 'ios' ? <Tabs/> : <Drawer/>
+            Platform.OS === 'ios' ?<Drawer/>/*<Tabs/>*/: <Drawer/>
         )
     }
 }

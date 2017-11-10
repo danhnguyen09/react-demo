@@ -22,7 +22,7 @@ class DrawerApp extends Component {
                 >
                     <StackNavigation
                         id='home'
-                        initialRoute="demo"
+                        initialRoute="tabbar"
                         defaultRouteConfig={{
                             navigationBar: {
                                 tintColor: '#181819',

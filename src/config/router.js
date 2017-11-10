@@ -14,7 +14,7 @@ import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
-
+import Tabs from "../layout/Tabs";
 export const Router = createRouter(() => ({
     login: () => Login,
     home: () => Home,
@@ -30,4 +30,5 @@ export const Router = createRouter(() => ({
     screen8: () => Screen8,
     screen9: () => Screen9,
     screen10: () => Screen10,
+    tabbar: () => Tabs,
 }));

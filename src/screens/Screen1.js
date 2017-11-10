@@ -5,7 +5,8 @@ import Container from '../components/Container';
 class Screen extends Component {
   static route = {
     navigationBar: {
-      title: 'Screen #1',
+        title: 'Screen #1',
+        visible: false
     }
   }
 
