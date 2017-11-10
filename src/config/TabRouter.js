@@ -1,6 +1,5 @@
 import React from 'react';
 import {DrawerNavigator, StackNavigator, TabNavigator, NavigationActions} from 'react-navigation';
-// import {createRouter, StackNavigation, TabNavigation} from '@expo/ex-navigation';
 
 import Screen1 from '../screens/Screen1';
 import Screen2 from '../screens/Screen2';

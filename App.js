@@ -6,12 +6,6 @@
 
 import React, {Component} from 'react';
 import {StatusBar, View, Platform, StyleSheet} from 'react-native';
-import {NavigationProvider, StackNavigation} from '@expo/ex-navigation';
-
-// import Tabs from './src/layout/Tabs';
-// import Drawer from './src/layout/Drawer';
-// import {Router} from './src/config/router'
-// import Login from "./src/screens/Login";
 import RootNavigator from "./src/config/TabRouter";
 
 const instructions = Platform.select({
