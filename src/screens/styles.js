@@ -46,6 +46,12 @@ export default {
         // fontFamily: 'Roboto-Regular',
     },
 
+    disable_bgBtnColor:{
+        backgroundColor:"#d3d3d3"
+    },
+    active_bgBtnColor:{
+        backgroundColor:"#FFA000"
+    },
     button_back: {
         margin: 20,
         justifyContent: 'center',
@@ -60,5 +66,17 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center'
     },
+
+    loading_indicator: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+
 
 }

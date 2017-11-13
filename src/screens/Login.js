@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TextInput, TouchableOpacity, Text, Button, Alert} from 'react-native';
+import {View, TextInput, TouchableOpacity, Text, Button, Alert, ActivityIndicator} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import styles from './styles';
 import * as API from '../config/api/config';
@@ -14,7 +14,9 @@ class Login extends Component {
             isShowValidError: false,
             movedPage: false,
             user: null,
-            error: null
+            error: null,
+            isLoading: false
+
         }
     }
 
@@ -23,6 +25,7 @@ class Login extends Component {
         if (validateEmail(this.state.username) && validatePassword(this.state.password)) {
             this.setState({
                 isShowValidError: false,
+                isLoading: true
             })
             this._login(this.state.email, this.state.password);
 
@@ -75,6 +78,10 @@ class Login extends Component {
                     ]
                 })
 
+                this.setState({
+                    isLoading: false
+                })
+
                 this.props.navigation.dispatch(resetNav);
                 // this.props.navigation.navigate('home')
                 // this.setState({
@@ -86,7 +93,8 @@ class Login extends Component {
                 console.log(error)
                 this.setState({
                     user: null,
-                    error: error
+                    error: error,
+                    isLoading: false
                 })
                 let resetNav = NavigationActions.reset({
                     index: 0,
@@ -100,6 +108,7 @@ class Login extends Component {
     }
 
     render() {
+        const {isLoading} = this.state;
 
         return (<View style={styles.container}>
                 <Text style={styles.login_label}>LOGIN</Text>
@@ -133,10 +142,26 @@ class Login extends Component {
                     margin: 20,
                     textAlign: 'center'
                 }}>{this.state.isShowValidError ? "Email or password is wrong format!" : ' '}</Text>
-                <TouchableOpacity style={styles.button}
-                                  onPress={this._doLogin.bind(this)}>
-                    <Text style={styles.login_button}>Login</Text>
-                </TouchableOpacity>
+            <TouchableOpacity style={
+                [styles.button,isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
+            }
+
+                              onPress={this._doLogin.bind(this)}
+                              disabled={isLoading}
+
+            >
+                <Text style={styles.login_button}>Login</Text>
+            </TouchableOpacity>
+
+                {isLoading && (<ActivityIndicator
+                    style={styles.loading_indicator}
+                    color="#C00"
+                    size="large"
+                />)
+                }
+
+
+
             </View>
 
         );
