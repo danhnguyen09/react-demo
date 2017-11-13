@@ -6,5 +6,5 @@ export function getPhoto() {
 }
 
 export function login() {
-    return 'http://192.168.1.19:8888/android_login_api/login.php';
+    return 'http://192.168.4.186:8888/android_login_api/login.php';
 }

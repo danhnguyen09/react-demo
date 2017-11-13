@@ -1,5 +1,6 @@
 import React from 'react';
 import {DrawerNavigator, StackNavigator, TabNavigator, NavigationActions} from 'react-navigation';
+import {AsyncStorage} from 'react-native';
 
 import Screen1 from '../screens/Screen1';
 import Screen2 from '../screens/Screen2';
@@ -15,7 +16,8 @@ import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
 import {Image, TouchableOpacity} from "react-native";
-// import Home from '../screens/Home';
+
+const user = AsyncStorage.getItem('USER_JSON');
 
 const StackDemo = StackNavigator({
     demo: {
@@ -24,15 +26,15 @@ const StackDemo = StackNavigator({
             title: 'Home Demo',  // Title to appear in status bar
             headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
                 <Image
-                       source={require('../images/ic_menu_white_24dp_2x.png')} style={
+                    source={require('../images/ic_menu_white_24dp_2x.png')} style={
                     {
                         margin: 10
                     }
                 }/>
             </TouchableOpacity>,
             headerStyle: {
-                        backgroundColor: 'green'
-                    }
+                backgroundColor: 'green'
+            }
         })
     },
 })
@@ -160,7 +162,7 @@ const TabItems = TabNavigator({
     }
 }, {
     initialRouteName: 'tab1',
-    tabBarPosition:'bottom'
+    tabBarPosition: 'bottom'
 })
 
 const Drawers = DrawerNavigator({
@@ -172,7 +174,7 @@ const RootNavigator = StackNavigator({
     login: {screen: Login},
     home: {screen: Drawers}
 }, {
-    initialRouteName: 'login',
+    initialRouteName: (user) ? 'home' : 'login',
     headerMode: 'none'
 })
 

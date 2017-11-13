@@ -7,7 +7,7 @@ class Screen extends Component {
         navigationBar: {
             title: 'Screen #18888',
             renderLeft:
-                <Text style={{textColor: 'red'}}>Left Menu</Text>,
+                <Text style={{color: 'red'}}>Left Menu</Text>,
             titleStyle: { textAlign: 'center'},
             visible: false
         }

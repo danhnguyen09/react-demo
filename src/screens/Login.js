@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TextInput, TouchableOpacity, Text, Button, Alert, ActivityIndicator} from 'react-native';
+import {View, AsyncStorage, TextInput, TouchableOpacity, Text, Button, Alert, ActivityIndicator} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import styles from './styles';
 import * as API from '../config/api/config';
@@ -9,8 +9,8 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: "demo@gmail.com",
-            password: "123456",
+            username: 'demo@gmail.com',
+            password: '123456',
             isShowValidError: false,
             movedPage: false,
             user: null,
@@ -27,7 +27,7 @@ class Login extends Component {
                 isShowValidError: false,
                 isLoading: true
             })
-            this._login(this.state.email, this.state.password);
+            this._login(this.state.username, this.state.password);
 
         } else {
             this.setState({
@@ -58,36 +58,39 @@ class Login extends Component {
     }
 
     _login(email, password) {
+        var formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+
+
+        console.log("Email==>" + email)
+        console.log("Password==>" + password)
         return fetch(API.login(), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            })
+            body: formData
         }).then((response) => response.json())
             .then((responseJson) => {
-            console.log(responseJson)
-                let resetNav = NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({routeName: 'home'})
-                    ]
-                })
-
                 this.setState({
                     isLoading: false
                 })
-
-                this.props.navigation.dispatch(resetNav);
-                // this.props.navigation.navigate('home')
-                // this.setState({
-                //     user: responseJson.error ? null : responseJson,
-                //     error: responseJson.error ? responseJson : null
-                // })
+                console.log(responseJson)
+                if (responseJson.error) {
+                    Alert.alert("Login", "Login fail\n" + responseJson.error_msg)
+                    return;
+                }
+                AsyncStorage.setItem('USER_JSON', responseJson, () => {
+                    let resetNav = NavigationActions.reset({
+                        index: 0,
+                        actions: [
+                            NavigationActions.navigate({routeName: 'home'})
+                        ]
+                    })
+                    this.props.navigation.dispatch(resetNav);
+                });
             })
             .catch((error) => {
                 console.log(error)
@@ -96,14 +99,7 @@ class Login extends Component {
                     error: error,
                     isLoading: false
                 })
-                let resetNav = NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({routeName: 'home'})
-                    ]
-                })
-
-                this.props.navigation.dispatch(resetNav);
+                Alert.alert("Login", "Login fail\n" + error)
             });
     }
 
@@ -117,7 +113,6 @@ class Login extends Component {
                            autoCorrect={false}
                            keyboardType='email-address'
                            returnKeyType="next"
-                           value="demo@gmail.com"
                            onChangeText={(input) => {
                                this.setState({
                                    isShowValidError: false,
@@ -129,7 +124,6 @@ class Login extends Component {
                            placeholder="Password"
                            secureTextEntry={true}
                            returnKeyType="go"
-                           value="123456"
                            onChangeText={(input) => {
                                this.setState({
                                    isShowValidError: false,
@@ -142,16 +136,16 @@ class Login extends Component {
                     margin: 20,
                     textAlign: 'center'
                 }}>{this.state.isShowValidError ? "Email or password is wrong format!" : ' '}</Text>
-            <TouchableOpacity style={
-                [styles.button,isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
-            }
+                <TouchableOpacity style={
+                    [styles.button, isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
+                }
 
-                              onPress={this._doLogin.bind(this)}
-                              disabled={isLoading}
+                                  onPress={this._doLogin.bind(this)}
+                                  disabled={isLoading}
 
-            >
-                <Text style={styles.login_button}>Login</Text>
-            </TouchableOpacity>
+                >
+                    <Text style={styles.login_button}>Login</Text>
+                </TouchableOpacity>
 
                 {isLoading && (<ActivityIndicator
                     style={styles.loading_indicator}
@@ -159,7 +153,6 @@ class Login extends Component {
                     size="large"
                 />)
                 }
-
 
 
             </View>
