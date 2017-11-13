@@ -35,28 +35,7 @@ class Login extends Component {
             })
         }
     }
-
-    // _navigateToMain = () => {
-    //     const resetAction = NavigationActions.reset({
-    //         index: 0,
-    //         actions: [
-    //             NavigationActions.navigate({type: 'NAVI_DEMO', routeName: 'MainPage'})
-    //         ]
-    //     });
-    //     store.dispatch(resetAction)
-    // }
-
-    componentWillReceiveProps(loginProps) {
-        this.setState({
-            isLoading: false,
-        })
-        // if(this.state.user) {
-        //     Alert.alert("Login result", "Login success")
-        // } else {
-        //     Alert.alert("Login result", "Login fail")
-        // }
-    }
-
+    
     _login(email, password) {
         var formData = new FormData();
         formData.append('email', email);
