@@ -9,8 +9,8 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: 'demo@gmail.com',
-            password: '123456',
+            username: null,
+            password: null,
             isShowValidError: false,
             movedPage: false,
             user: null,
@@ -35,7 +35,7 @@ class Login extends Component {
             })
         }
     }
-    
+
     _login(email, password) {
         var formData = new FormData();
         formData.append('email', email);
@@ -61,15 +61,13 @@ class Login extends Component {
                     Alert.alert("Login", "Login fail\n" + responseJson.error_msg)
                     return;
                 }
-                AsyncStorage.setItem('USER_JSON', responseJson, () => {
-                    let resetNav = NavigationActions.reset({
-                        index: 0,
-                        actions: [
-                            NavigationActions.navigate({routeName: 'home'})
-                        ]
-                    })
-                    this.props.navigation.dispatch(resetNav);
-                });
+                let resetNav = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'home'})
+                    ]
+                })
+                this.props.navigation.dispatch(resetNav);
             })
             .catch((error) => {
                 console.log(error)
@@ -133,7 +131,15 @@ class Login extends Component {
                 />)
                 }
 
-
+                <TouchableOpacity style={{
+                    marginTop: 20,
+                    alignItems: 'flex-end',
+                    justifyContent: 'center',
+                }} onPress={() => {
+                    this.props.navigation.navigate('register')
+                }}>
+                    <Text>Register Account</Text>
+                </TouchableOpacity>
             </View>
 
         );

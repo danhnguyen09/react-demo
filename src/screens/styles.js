@@ -1,4 +1,4 @@
-import {Platform} from "react-native";
+import {Platform, Dimensions} from "react-native";
 
 export default {
     container: {
@@ -28,7 +28,7 @@ export default {
         height: 48,
         fontSize: 16,
         padding: 10,
-        borderBottomWidth: Platform.OS =="ios"? 0.5 : 0,
+        borderBottomWidth: Platform.OS == "ios" ? 0.5 : 0,
         borderBottomColor: 'black'
         // fontFamily: 'Roboto-Regular',
     },
@@ -46,12 +46,21 @@ export default {
         // fontFamily: 'Roboto-Regular',
     },
 
-    disable_bgBtnColor:{
-        backgroundColor:"#d3d3d3"
+    logout_button: {
+        height: 48,
+        alignItems: 'center',
+        marginTop: 60,
+        backgroundColor: "#FFA000",
+        justifyContent: 'center',
     },
-    active_bgBtnColor:{
-        backgroundColor:"#FFA000"
+
+    disable_bgBtnColor: {
+        backgroundColor: "#d3d3d3"
     },
+    active_bgBtnColor: {
+        backgroundColor: "#FFA000"
+    },
+
     button_back: {
         margin: 20,
         justifyContent: 'center',
@@ -76,7 +85,6 @@ export default {
         alignItems: 'center',
         justifyContent: 'center'
     },
-
 
 
 }

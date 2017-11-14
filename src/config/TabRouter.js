@@ -1,7 +1,6 @@
 import React from 'react';
-import {DrawerNavigator, StackNavigator, TabNavigator, NavigationActions} from 'react-navigation';
-import {AsyncStorage} from 'react-native';
-
+import {DrawerNavigator, StackNavigator, TabNavigator, NavigationActions, DrawerItems} from 'react-navigation';
+import {Image, TouchableOpacity, AsyncStorage, View, Text, Dimensions, StyleSheet, ScrollView} from 'react-native';
 import Screen1 from '../screens/Screen1';
 import Screen2 from '../screens/Screen2';
 import Screen3 from '../screens/Screen3';
@@ -15,9 +14,28 @@ import Screen10 from '../screens/Screen10';
 import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
-import {Image, TouchableOpacity} from "react-native";
+import Register from "../screens/Register";
+import styles from '../screens/styles';
 
-const user = AsyncStorage.getItem('USER_JSON');
+const StackRegister = StackNavigator({
+    registerStack: {screen: Register,
+        navigationOptions: ({navigation}) => ({
+            headerLeft: <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())}>
+                <Image
+                    source={require('../images/ic_arrow_back_black_24dp_2x.png')} style={
+                    {
+                        margin: 10,
+                        width: 30,
+                        height: 30
+                    }
+                }/>
+            </TouchableOpacity>,
+            headerStyle: {
+                backgroundColor: 'transparent'
+            }
+        })
+    }
+})
 
 const StackDemo = StackNavigator({
     demo: {
@@ -28,7 +46,9 @@ const StackDemo = StackNavigator({
                 <Image
                     source={require('../images/ic_menu_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -48,7 +68,9 @@ const StackDemo2 = StackNavigator({
                 <Image
                     source={require('../images/ic_menu_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -76,7 +98,9 @@ const Stack2 = StackNavigator({
                 <Image
                     source={require('../images/ic_menu_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -93,7 +117,9 @@ const Stack2 = StackNavigator({
                 <Image
                     source={require('../images/ic_arrow_back_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -113,7 +139,9 @@ const Stack3 = StackNavigator({
                 <Image
                     source={require('../images/ic_menu_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -130,7 +158,9 @@ const Stack3 = StackNavigator({
                 <Image
                     source={require('../images/ic_arrow_back_white_24dp_2x.png')} style={
                     {
-                        margin: 10
+                        margin: 10,
+                        width: 30,
+                        height: 30
                     }
                 }/>
             </TouchableOpacity>,
@@ -166,16 +196,55 @@ const TabItems = TabNavigator({
 })
 
 const Drawers = DrawerNavigator({
-    demoScreen: {screen: TabItems},
-    demo2Screen: {screen: StackDemo2}
+    demoScreen: {
+        screen: TabItems,
+        navigationOptions: ({navigation}) => ({
+            title: 'Home',  // Title to appear in status bar
+        })
+    },
+    demo2Screen: {screen: StackDemo2},
+}, {
+    drawerWidth: (Dimensions.get('window').width * 0.75),
+    drawerPosition: 'left',
+    contentComponent: (props) => <CustomDrawerContentComponent {...props}/>
 })
 
-const RootNavigator = StackNavigator({
+export const RootNavigator = StackNavigator({
     login: {screen: Login},
+    register: {screen: StackRegister},
     home: {screen: Drawers}
 }, {
-    initialRouteName: (user) ? 'home' : 'login',
     headerMode: 'none'
 })
 
-export default RootNavigator;
+export const NoLoginNavigator = StackNavigator ({
+    login: {screen: Login},
+    register: {screen: Register},
+    home: {screen: Drawers}
+}, {
+    headerMode: 'none'
+})
+
+const CustomDrawerContentComponent = (props) => (
+
+    <ScrollView style={stylesDrawItem.container}>
+        <View>
+            <DrawerItems {...props} />
+            <TouchableOpacity style={styles.logout_button} onPress={() => {
+            AsyncStorage.clear();
+            }}>
+                <Text style={styles.login_button}>Logout</Text>
+            </TouchableOpacity>
+        </View>
+
+    </ScrollView>
+);
+
+const stylesDrawItem = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
+
+
+// export default RootNavigator;
