@@ -5,8 +5,8 @@
  */
 
 import React, {Component} from 'react';
-import {StatusBar, View, Platform, StyleSheet, AsyncStorage} from 'react-native';
-import {RootNavigator} from "./src/config/TabRouter";
+import {StatusBar, View, Platform, StyleSheet} from 'react-native';
+import RootNavigator from "./src/config/TabRouter";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -21,9 +21,7 @@ export default class App extends Component<{}> {
     }
 
     render() {
-        return (
-           <RootNavigator/>
-        );
+        return <RootNavigator/>
     }
 }
 

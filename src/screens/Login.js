@@ -61,6 +61,7 @@ class Login extends Component {
                     Alert.alert("Login", "Login fail\n" + responseJson.error_msg)
                     return;
                 }
+                AsyncStorage.setItem('USER_EMAIL', JSON.stringify(responseJson.user.email))
                 let resetNav = NavigationActions.reset({
                     index: 0,
                     actions: [

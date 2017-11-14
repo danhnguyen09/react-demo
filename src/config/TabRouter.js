@@ -15,7 +15,19 @@ import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
 import Register from "../screens/Register";
+import SplashScreen from "../screens/SplashScreen";
 import styles from '../screens/styles';
+
+// const Logged = () => {
+//     AsyncStorage.getItem('USER_EMAIL', (error, result) => {
+//         if(error) {
+//             return false
+//         }
+//         console.log('USER_EMAIL => ' + result)
+//         if(result && result.toString().indexOf('@')) return true
+//         return false
+//     })
+// }
 
 const StackRegister = StackNavigator({
     registerStack: {screen: Register,
@@ -210,19 +222,13 @@ const Drawers = DrawerNavigator({
 })
 
 export const RootNavigator = StackNavigator({
+    splash: {screen: SplashScreen},
     login: {screen: Login},
     register: {screen: StackRegister},
     home: {screen: Drawers}
 }, {
-    headerMode: 'none'
-})
-
-export const NoLoginNavigator = StackNavigator ({
-    login: {screen: Login},
-    register: {screen: Register},
-    home: {screen: Drawers}
-}, {
-    headerMode: 'none'
+    headerMode: 'none',
+    initialRouteName: 'splash'
 })
 
 const CustomDrawerContentComponent = (props) => (
@@ -247,4 +253,4 @@ const stylesDrawItem = StyleSheet.create({
 });
 
 
-// export default RootNavigator;
+export default RootNavigator;
