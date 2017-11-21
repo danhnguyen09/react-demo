@@ -1,13 +1,24 @@
 import React, {Component} from 'react';
-import {View, AsyncStorage, TextInput, TouchableOpacity, Text, Button, Alert, ActivityIndicator} from 'react-native';
+import {View, AsyncStorage, TextInput, TouchableOpacity, Text, Button, Alert, ActivityIndicator, Dimensions} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import styles from './styles';
 import * as API from '../config/api/config';
+import PopupDialog, {
+    DialogTitle,
+    DialogButton,
+    SlideAnimation,
+    ScaleAnimation,
+    FadeAnimation,
+} from 'react-native-popup-dialog';
+const window = Dimensions.get('window');
+// const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
+const scaleAnimation = new ScaleAnimation();
+// const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
 
 class Login extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             username: null,
             password: null,
@@ -15,10 +26,22 @@ class Login extends Component {
             movedPage: false,
             user: null,
             error: null,
-            isLoading: false
-
-        }
+            isLoading: false,
+            dialogShow: false,
+        };
     }
+
+    showScaleAnimationDialog() {
+        this.scaleAnimationDialog.show();
+    }
+
+    // showSlideAnimationDialog() {
+    //     this.slideAnimationDialog.show();
+    // }
+    //
+    // showFadeAnimationDialog() {
+    //     this.fadeAnimationDialog.show();
+    // }
 
     _doLogin() {
         console.log("call login")
@@ -85,6 +108,34 @@ class Login extends Component {
         const {isLoading} = this.state;
 
         return (<View style={styles.container}>
+                <PopupDialog
+                    width={window.width * 0.85}
+                    ref={(popupDialog) => {
+                        this.scaleAnimationDialog = popupDialog;
+                    }}
+                    dialogAnimation={scaleAnimation}
+                    dialogTitle={<DialogTitle title="Confirm!!" />}
+                    actions={[
+                        <DialogButton
+                            text="DISMISS"
+                            onPress={() => {
+                                this.scaleAnimationDialog.dismiss();
+                                //this._doLogin.bind(this);
+                            }}
+                            key="button-1"
+                        />,
+                    ]}
+                >
+                    <View style={styles.dialogContentView}>
+                        <Text style={
+                            {color: "#FF0000",
+                                // fontFamily: 'Roboto-Regular',
+                                fontSize: 20,
+                                textAlign: 'center',
+                                // textStyle: 'bold',
+                                margin: 10} }>Login with {this.state.username}!</Text>
+                    </View>
+                </PopupDialog>
                 <Text style={styles.login_label}>LOGIN</Text>
                 <TextInput style={styles.input_login_field}
                            placeholder="Email"
@@ -118,7 +169,10 @@ class Login extends Component {
                     [styles.button, isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
                 }
 
-                                  onPress={this._doLogin.bind(this)}
+                                  onPress={
+                                      // this._doLogin.bind(this)
+                                      this.showScaleAnimationDialog.bind(this)
+                                  }
                                   disabled={isLoading}
 
                 >
@@ -137,7 +191,7 @@ class Login extends Component {
                     alignItems: 'flex-end',
                     justifyContent: 'center',
                 }} onPress={() => {
-                    this.props.navigation.navigate('register')
+                    this.props.navigation.navigate('grid_view'/*'register'*/)
                 }}>
                     <Text>Register Account</Text>
                 </TouchableOpacity>

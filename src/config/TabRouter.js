@@ -17,6 +17,7 @@ import Login from '../screens/Login';
 import Register from "../screens/Register";
 import SplashScreen from "../screens/SplashScreen";
 import styles from '../screens/styles';
+import Gird_view_example from '../screens/GridViewExample';
 
 // const Logged = () => {
 //     AsyncStorage.getItem('USER_EMAIL', (error, result) => {
@@ -48,6 +49,31 @@ const StackRegister = StackNavigator({
         })
     }
 })
+
+function stackNavigatorsWithPage(pageName) {
+    // Define desired object
+    var obj = StackNavigator({
+        registerStack: {screen: pageName,
+            navigationOptions: ({navigation}) => ({
+                headerLeft: <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())}>
+                    <Image
+                        source={require('../images/ic_arrow_back_black_24dp_2x.png')} style={
+                        {
+                            margin: 10,
+                            width: 30,
+                            height: 30
+                        }
+                    }/>
+                </TouchableOpacity>,
+                headerStyle: {
+                    backgroundColor: 'white'
+                }
+            })
+        }
+    });
+    // Return it
+    return obj;
+}
 
 const StackDemo = StackNavigator({
     demo: {
@@ -225,7 +251,8 @@ export const RootNavigator = StackNavigator({
     splash: {screen: SplashScreen},
     login: {screen: Login},
     register: {screen: StackRegister},
-    home: {screen: Drawers}
+    home: {screen: Drawers},
+    grid_view: {screen : stackNavigatorsWithPage(Gird_view_example)}
 }, {
     headerMode: 'none',
     initialRouteName: 'splash'

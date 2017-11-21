@@ -3,7 +3,7 @@ import {Platform, Dimensions} from "react-native";
 export default {
     container: {
         flex: 1,
-        margin: 20
+        //margin: 20
     },
     input_group: {
         borderColor: "#999999",
@@ -25,6 +25,7 @@ export default {
     },
 
     input_login_field: {
+        margin: 20,
         height: 48,
         fontSize: 16,
         padding: 10,
@@ -39,6 +40,7 @@ export default {
     },
 
     button: {
+        margin:20,
         height: 48,
         justifyContent: 'center',
         alignItems: 'center',
@@ -86,5 +88,13 @@ export default {
         justifyContent: 'center'
     },
 
+    contentDialog: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        width: 200,
+        height: 100
+    },
 
 }
