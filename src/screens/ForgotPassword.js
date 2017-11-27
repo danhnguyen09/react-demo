@@ -6,8 +6,9 @@ import {
 import {NavigationActions} from 'react-navigation';
 import styles from './styles';
 import * as API from '../config/api/config';
+import {validateEmail, validatePassword, validateText} from "./Register";
 
-class Register extends Component {
+class ForgotPassword extends Component {
 
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.title}`
@@ -16,9 +17,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullname: null,
             username: null,
-            password: null,
             isShowValidError: false,
             movedPage: false,
             user: null,
@@ -26,18 +25,18 @@ class Register extends Component {
             isLoading: false,
         }
 
-        props.navigation.setParams({title: "Register"});
+        props.navigation.setParams({title: "Forgot Password"});
 
     }
 
     _doRegister() {
         console.log("call login")
-        if (validateText(this.state.fullname) && validateEmail(this.state.username) && validatePassword(this.state.password)) {
+        if (validateEmail(this.state.username)) {
             this.setState({
                 isShowValidError: false,
                 isLoading: true
             })
-            this._register(this.state.fullname, this.state.username, this.state.password);
+            this._register(this.state.username);
 
         } else {
             this.setState({
@@ -46,11 +45,11 @@ class Register extends Component {
         }
     }
 
-    _register(fullname, email, password) {
+    _register(email) {
         var formData = new FormData();
-        formData.append('name', fullname)
+        // formData.append('name', fullname)
         formData.append('email', email);
-        formData.append('password', password);
+        // formData.append('password', password);
         // console.log("Fullname==>" + fullname)
         // console.log("Email==>" + email)
         // console.log("Password==>" + password)
@@ -70,7 +69,7 @@ class Register extends Component {
                     isLoading: false
                 })
                 if (responseJson.error) {
-                    Alert.alert("Register", "Register fail\n" + responseJson.error_msg)
+                    Alert.alert("Change Password", "Request fail\n" + responseJson.error_msg)
                     return;
                 }
                 AsyncStorage.setItem('USER_JSON', responseJson, () => {
@@ -90,26 +89,15 @@ class Register extends Component {
                     error: error,
                     isLoading: false
                 })
-                Alert.alert("Register", "Register fail\n" + error)
+                Alert.alert("Change Password", "Request fail\n" + error)
             });
     }
 
     render() {
         const {isLoading} = this.state;
 
-        return (<ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
+        return (
                 <View>
-                    {/*<Text style={styles.login_label}>REGISTER</Text>*/}
-                    <TextInput style={styles.input_login_field}
-                               placeholder="Fullname"
-                               autoCorrect={false}
-                               returnKeyType="next"
-                               onChangeText={(input) => {
-                                   this.setState({
-                                       isShowValidError: false,
-                                       fullname: input
-                                   })
-                               }}/>
                     <TextInput style={styles.input_login_field}
                                placeholder="Email"
                                autoCorrect={false}
@@ -121,32 +109,18 @@ class Register extends Component {
                                        username: input
                                    })
                                }}/>
-
-                    <TextInput style={styles.input_login_field}
-                               placeholder="Password"
-                               secureTextEntry={true}
-                               returnKeyType="go"
-                               onChangeText={(input) => {
-                                   this.setState({
-                                       isShowValidError: false,
-                                       password: input
-                                   })
-                               }}/>
-
                     <Text style={{
                         color: "#FF0000",
                         margin: 20,
                         textAlign: 'center'
-                    }}>{this.state.isShowValidError ? "Error! Please check your info again!" : ' '}</Text>
+                    }}>{this.state.isShowValidError ? "Error! Please check your email again!" : ' '}</Text>
                     <TouchableOpacity style={
                         [styles.button, isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
                     }
-
                                       onPress={this._doRegister.bind(this)}
                                       disabled={isLoading}
-
                     >
-                        <Text style={styles.login_button}>Register</Text>
+                        <Text style={styles.login_button}>Submit</Text>
                     </TouchableOpacity>
 
                     {isLoading && (<ActivityIndicator
@@ -155,25 +129,9 @@ class Register extends Component {
                         size="large"
                     />)
                     }
-
                 </View>
-            </ScrollView>
-
         );
     }
 }
 
-export function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-export function validatePassword(password) {
-    return password && password.length > 0;
-}
-
-export function validateText(text) {
-    return text && text.length > 0;
-}
-
-export default Register;
+export default ForgotPassword;

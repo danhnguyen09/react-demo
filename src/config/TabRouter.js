@@ -14,7 +14,10 @@ import Screen10 from '../screens/Screen10';
 import Demo from '../screens/Demo';
 import Demo2 from '../screens/Demo2';
 import Login from '../screens/Login';
+import GridViewExample from '../screens/GridViewExample';
+import SearchBarExample from '../screens/SearchBarExample';
 import Register from "../screens/Register";
+import ForgotPassword from "../screens/ForgotPassword";
 import SplashScreen from "../screens/SplashScreen";
 import styles from '../screens/styles';
 import Gird_view_example from '../screens/GridViewExample';
@@ -55,6 +58,7 @@ function stackNavigatorsWithPage(pageName) {
     var obj = StackNavigator({
         registerStack: {screen: pageName,
             navigationOptions: ({navigation}) => ({
+                title: '',
                 headerLeft: <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.back())}>
                     <Image
                         source={require('../images/ic_arrow_back_black_24dp_2x.png')} style={
@@ -66,8 +70,16 @@ function stackNavigatorsWithPage(pageName) {
                     }/>
                 </TouchableOpacity>,
                 headerStyle: {
-                    backgroundColor: 'white'
+                    backgroundColor: '#FFA000',
+                },
+                headerTitleStyle : {
+                    textAlign: 'center',
+                    alignSelf:'center',
+                    color: 'white',
+                    fontSize: 25,
+                    width: (Dimensions.get('window').width * 0.65),
                 }
+
             })
         }
     });
@@ -75,9 +87,10 @@ function stackNavigatorsWithPage(pageName) {
     return obj;
 }
 
+
 const StackDemo = StackNavigator({
     demo: {
-        screen: Demo,
+        screen: GridViewExample,
         navigationOptions: ({navigation}) => ({
             title: 'Home Demo',  // Title to appear in status bar
             headerLeft: <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
@@ -96,6 +109,8 @@ const StackDemo = StackNavigator({
         })
     },
 })
+
+
 
 const StackDemo2 = StackNavigator({
     demo: {
@@ -250,9 +265,11 @@ const Drawers = DrawerNavigator({
 export const RootNavigator = StackNavigator({
     splash: {screen: SplashScreen},
     login: {screen: Login},
-    register: {screen: StackRegister},
+    register: {screen: stackNavigatorsWithPage(Register)},
     home: {screen: Drawers},
-    grid_view: {screen : stackNavigatorsWithPage(Gird_view_example)}
+    grid_view: {screen : stackNavigatorsWithPage(Gird_view_example)},
+    forgot_password: {screen: stackNavigatorsWithPage(ForgotPassword)},
+    searchbar_example: {screen: stackNavigatorsWithPage(SearchBarExample)},
 }, {
     headerMode: 'none',
     initialRouteName: 'splash'

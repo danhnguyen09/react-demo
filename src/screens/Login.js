@@ -20,8 +20,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
-            password: null,
+            username: "chinhcntt2010@gmail.com",
+            password: "123456",
             isShowValidError: false,
             movedPage: false,
             user: null,
@@ -31,9 +31,34 @@ class Login extends Component {
         };
     }
 
+    //life cycle page call after UI change
+
+    shouldComponentUpdate(nextProps, nextState){
+    // return a boolean value
+        console.log("shouldComponentUpdate => call")
+        return true;
+    }
+
+    componentWillUpdate(nextProps, nextState){
+    // perform any preparations for an upcoming update
+        console.log("componentWillUpdate => call")
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        console.log("componentDidUpdate => call")
+    }
+
     showScaleAnimationDialog() {
         this.scaleAnimationDialog.show();
     }
+
+    //Life cycle page call after init
+
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps => call")
+        this.setState({
+                  });
+}
 
     // showSlideAnimationDialog() {
     //     this.slideAnimationDialog.show();
@@ -94,13 +119,21 @@ class Login extends Component {
                 this.props.navigation.dispatch(resetNav);
             })
             .catch((error) => {
-                console.log(error)
-                this.setState({
-                    user: null,
-                    error: error,
-                    isLoading: false
+                let resetNav = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName: 'home'})
+                    ]
                 })
-                Alert.alert("Login", "Login fail\n" + error)
+                this.props.navigation.dispatch(resetNav);
+                // console.log(error)
+                // this.setState({
+                //     user: null,
+                //     error: error,
+                //     isLoading: false
+                // })
+                //
+                // Alert.alert("Login", "Login fail\n" + error)
             });
     }
 
@@ -168,33 +201,37 @@ class Login extends Component {
                 <TouchableOpacity style={
                     [styles.button, isLoading ? styles.disable_bgBtnColor : styles.active_bgBtnColor]
                 }
-
                                   onPress={
-                                      // this._doLogin.bind(this)
-                                      this.showScaleAnimationDialog.bind(this)
+                                      this._doLogin.bind(this)
+                                      //this.showScaleAnimationDialog.bind(this)
                                   }
                                   disabled={isLoading}
 
                 >
                     <Text style={styles.login_button}>Login</Text>
                 </TouchableOpacity>
-
                 {isLoading && (<ActivityIndicator
                     style={styles.loading_indicator}
                     color="#C00"
                     size="large"
                 />)
                 }
-
-                <TouchableOpacity style={{
-                    marginTop: 20,
-                    alignItems: 'flex-end',
-                    justifyContent: 'center',
-                }} onPress={() => {
-                    this.props.navigation.navigate('grid_view'/*'register'*/)
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                 }}>
-                    <Text>Register Account</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button_height, styles.button_margin_left]} onPress={() => {
+                        this.props.navigation.navigate('register',{title:''})
+                    }}>
+                        <Text>Register Account</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button_height, styles.button_margin_right]} onPress={() => {
+                        this.props.navigation.navigate('searchbar_example'/*'forgot_password'*/,{title:''})
+                    }}>
+                        <Text>Forgot Password</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
         );

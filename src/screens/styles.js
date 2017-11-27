@@ -1,4 +1,7 @@
 import {Platform, Dimensions} from "react-native";
+export const constant = {
+    main_color : '#FFA000',
+};
 
 export default {
     container: {
@@ -44,8 +47,24 @@ export default {
         height: 48,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#FFA000",
+        backgroundColor: constant.main_color,
         // fontFamily: 'Roboto-Regular',
+    },
+
+    button_height:{
+        height: 40,
+    },
+
+    button_height:{
+        height: 40,
+    },
+
+    button_margin_right:{
+        marginRight:20,
+    },
+
+    button_margin_left:{
+        marginLeft:20,
     },
 
     logout_button: {
@@ -96,5 +115,4 @@ export default {
         width: 200,
         height: 100
     },
-
 }
