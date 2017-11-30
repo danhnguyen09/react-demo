@@ -9,14 +9,16 @@
   "dependencies": {
     "react": "16.0.0",
     "react-native": "0.50.3",
+    "react-native-modal-popover": "0.0.3",
     "react-native-popover": "^0.2.0",
     "react-native-popover-tooltip": "^1.1.4",
     "react-native-popup": "^0.6.1",
-    "react-native-popup-dialog": "^0.9.39",
+    "react-native-popup-dialog": "^0.9.41",
     "react-native-searchbar": "^1.13.0",
     "react-native-super-grid": "^1.1.0",
     "react-native-vector-icons": "^4.0.1",
-    "react-navigation": "^1.0.0-beta.19"
+    "react-navigation": "^1.0.0-beta.21",
+    "react-throttle": "^0.3.0"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
